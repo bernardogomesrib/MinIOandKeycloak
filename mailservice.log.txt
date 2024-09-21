@@ -1,0 +1,116 @@
+ *  Executando tarefa: docker logs --tail 1000 -f d99d531d14f2b41a32ee5b4ba5511abbf9560e6211ff680e7d7eb1b2fed893dc 
+
+2024-09-20 01:08:27-04:00 INFO  start-mailserver.sh: Welcome to docker-mailserver v14.0.0
+2024-09-20 01:08:27-04:00 INFO  start-mailserver.sh: Checking configuration
+2024-09-20 01:08:27-04:00 INFO  start-mailserver.sh: Configuring mail server
+2024-09-20 01:08:29-04:00 WARN  start-mailserver.sh: (Rspamd setup) Running Amavis/SA & Rspamd at the same time is discouraged
+2024-09-20 01:08:29-04:00 WARN  start-mailserver.sh: (Rspamd setup) Running OpenDKIM & Rspamd at the same time is discouraged - we recommend Rspamd for DKIM checks (enabled with Rspamd by default) & signing
+2024-09-20 01:08:29-04:00 WARN  start-mailserver.sh: (Rspamd setup) Running OpenDMARC & Rspamd at the same time is discouraged - we recommend Rspamd for DMARC checks (enabled with Rspamd by default)
+2024-09-20 01:08:29-04:00 WARN  start-mailserver.sh: (Rspamd setup) Running policyd-spf & Rspamd at the same time is discouraged - we recommend Rspamd for SPF checks (enabled with Rspamd by default)
+2024-09-20 01:08:29-04:00 WARN  start-mailserver.sh: !! INSECURE !! SSL configured with plain text access - DO NOT USE FOR PRODUCTION DEPLOYMENT
+2024-09-20 01:08:30-04:00 INFO  start-mailserver.sh: Starting daemons
+2024-09-20 01:08:35-04:00 INFO  start-mailserver.sh: mail.quiz.local is up and running
+2024-09-20T01:08:37.157114-04:00 mail amavis[1090]: starting. /usr/sbin/amavisd at mail.quiz.local amavis-2.13.0 (20230106), Unicode aware, LC_CTYPE="C.UTF-8"
+2024-09-20T01:08:37.157257-04:00 mail amavis[1090]: perl=5.036000, user=, EUID: 999 (999);  group=(), EGID: 999 999 (999 999)
+2024-09-20T01:08:37.567043-04:00 mail amavis[1090]: Net::Server: Group Not Defined.  Defaulting to EGID '999 999'
+2024-09-20T01:08:37.567141-04:00 mail amavis[1090]: Net::Server: User Not Defined.  Defaulting to EUID '999'
+2024-09-20T01:08:37.586199-04:00 mail amavis[1090]: No ext program for   .zoo, tried: zoo
+2024-09-20T01:08:37.586364-04:00 mail amavis[1090]: No ext program for   .doc, tried: ripole
+2024-09-20T01:08:37.586797-04:00 mail amavis[1090]: No ext program for   .zst, tried: unzstd
+2024-09-20T01:08:37.586876-04:00 mail amavis[1090]: No decoder for       .F
+2024-09-20T01:08:37.586934-04:00 mail amavis[1090]: No decoder for       .doc
+2024-09-20T01:08:37.586953-04:00 mail amavis[1090]: No decoder for       .zoo
+2024-09-20T01:08:37.587009-04:00 mail amavis[1090]: No decoder for       .zst
+2024-09-20T01:08:37.587084-04:00 mail amavis[1090]: Using primary internal av scanner code for ClamAV-clamd
+2024-09-20T01:08:37.588706-04:00 mail amavis[1090]: Found secondary av scanner ClamAV-clamscan at /usr/bin/clamscan
+2024-09-20T01:09:00.580556-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1194, session=<O2N/CYYiQq6sFAAB>
+2024-09-20T01:10:00.563472-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1284, session=<9akSDYYinIKsFAAB>
+2024-09-20T01:10:00.639245-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1194><O2N/CYYiQq6sFAAB>: Disconnected: Connection closed (SELECT finished 59.985 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:11:00.573403-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1376, session=<20umEIYicrmsFAAB>
+2024-09-20T01:11:00.644971-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1284><9akSDYYinIKsFAAB>: Disconnected: Connection closed (SELECT finished 60.005 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:12:00.568656-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1468, session=<ks45FIYilsesFAAB>
+2024-09-20T01:12:00.651335-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1376><20umEIYicrmsFAAB>: Disconnected: Connection closed (SELECT finished 60.005 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:12:46.934189-04:00 mail postfix/postscreen[1538]: CONNECT from [172.20.0.4]:53848 to [172.20.0.3]:25
+2024-09-20T01:12:46.934318-04:00 mail postfix/postscreen[1538]: PASS OLD [172.20.0.4]:53848
+2024-09-20T01:12:46.958771-04:00 mail postfix/smtpd[1539]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:12:47.237211-04:00 mail policyd-spf[1544]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quizz@192.168.1.7.local; receiver=email.quiz.local
+2024-09-20T01:12:47.305510-04:00 mail postfix/smtpd[1539]: NOQUEUE: reject: RCPT from demo_keycloak.cal_default[172.20.0.4]: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey; from=<bot_quizz@192.168.1.7.local> to=<bot_quiz@email.quiz.local> proto=ESMTP helo=<keycloak.quiz.local.quiz.local>
+2024-09-20T01:12:47.309738-04:00 mail postfix/smtpd[1539]: disconnect from demo_keycloak.cal_default[172.20.0.4] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+2024-09-20T01:13:00.563690-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1565, session=<CzzNF4Yi0OWsFAAB>
+2024-09-20T01:13:00.634720-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1468><ks45FIYilsesFAAB>: Disconnected: Connection closed (SELECT finished 59.983 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:14:00.567166-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1657, session=<+NBgG4YiitesFAAB>
+2024-09-20T01:14:00.655126-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1565><CzzNF4Yi0OWsFAAB>: Disconnected: Connection closed (SELECT finished 60.020 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:15:00.551896-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1746, session=<Zyf0HoYirMGsFAAB>
+2024-09-20T01:15:00.628326-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1657><+NBgG4YiitesFAAB>: Disconnected: Connection closed (SELECT finished 59.973 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:15:45.022058-04:00 mail postfix/postscreen[1813]: CONNECT from [172.20.0.4]:35922 to [172.20.0.3]:25
+2024-09-20T01:15:45.022166-04:00 mail postfix/postscreen[1813]: PASS OLD [172.20.0.4]:35922
+2024-09-20T01:15:45.044420-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:15:45.224682-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+2024-09-20T01:15:45.274247-04:00 mail postfix/smtpd[1814]: NOQUEUE: reject: RCPT from demo_keycloak.cal_default[172.20.0.4]: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey; from=<bot_quiz@email.quiz.local> to=<bot_quiz@email.quiz.local> proto=ESMTP helo=<keycloak.quiz.local.quiz.local>
+2024-09-20T01:15:45.276739-04:00 mail postfix/smtpd[1814]: disconnect from demo_keycloak.cal_default[172.20.0.4] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+2024-09-20T01:15:54.502882-04:00 mail postfix/postscreen[1813]: CONNECT from [172.20.0.4]:35924 to [172.20.0.3]:25
+2024-09-20T01:15:54.502969-04:00 mail postfix/postscreen[1813]: PASS OLD [172.20.0.4]:35924
+2024-09-20T01:15:54.505806-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:15:54.531861-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+2024-09-20T01:15:54.612717-04:00 mail postfix/smtpd[1814]: NOQUEUE: reject: RCPT from demo_keycloak.cal_default[172.20.0.4]: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey; from=<bot_quiz@email.quiz.local> to=<bot_quiz@email.quiz.local> proto=ESMTP helo=<keycloak.quiz.local.quiz.local>
+2024-09-20T01:15:54.614999-04:00 mail postfix/smtpd[1814]: disconnect from demo_keycloak.cal_default[172.20.0.4] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+2024-09-20T01:15:57.588247-04:00 mail postfix/submissions/smtpd[1840]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:15:57.642616-04:00 mail postfix/submissions/smtpd[1840]: warning: non-SMTP command from demo_keycloak.cal_default[172.20.0.4]: \026\003\003\001\255\001\000\001\251\003\003p\032i\031@\235\235\203j\266\307\034\033\200\325\200\273
+2024-09-20T01:15:57.643230-04:00 mail postfix/submissions/smtpd[1840]: disconnect from demo_keycloak.cal_default[172.20.0.4] unknown=0/1 commands=0/1
+2024-09-20T01:15:57.647197-04:00 mail postfix/submissions/smtpd[1840]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:15:57.650587-04:00 mail postfix/submissions/smtpd[1840]: warning: non-SMTP command from demo_keycloak.cal_default[172.20.0.4]: \026\003\003\001\255\001\000\001\251\003\003\214\210\215\017z\222\345T\006j\036-\363\242/\374\030\32
+2024-09-20T01:15:57.651298-04:00 mail postfix/submissions/smtpd[1840]: disconnect from demo_keycloak.cal_default[172.20.0.4] unknown=0/1 commands=0/1
+2024-09-20T01:16:00.565907-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1845, session=<CuWHIoYiDoWsFAAB>
+2024-09-20T01:16:00.640001-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1746><Zyf0HoYirMGsFAAB>: Disconnected: Connection closed (SELECT finished 60.011 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:16:17.055926-04:00 mail postfix/postscreen[1813]: CONNECT from [172.20.0.4]:56236 to [172.20.0.3]:25
+2024-09-20T01:16:17.056020-04:00 mail postfix/postscreen[1813]: PASS OLD [172.20.0.4]:56236
+2024-09-20T01:16:17.058117-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:16:17.087962-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+5\017z\222\345T\006j\036-\363\242/\374\030\32
+2024-09-20T01:15:57.651298-04:00 mail postfix/submissions/smtpd[1840]: disconnect from demo_keycloak.cal_default[172.20.0.4] unknown=0/1 commands=0/1
+2024-09-20T01:16:00.565907-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1845, session=<CuWHIoYiDoWsFAAB>
+2024-09-20T01:16:00.640001-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1746><Zyf0HoYirMGsFAAB>: Disconnected: Connection closed (SELECT finished 60.011 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:16:17.055926-04:00 mail postfix/postscreen[1813]: CONNECT from [172.20.0.4]:56236 to [172.20.0.3]:25
+2024-09-20T01:16:17.056020-04:00 mail postfix/postscreen[1813]: PASS OLD [172.20.0.4]:56236
+2024-09-20T01:16:17.058117-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:16:17.087962-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+2024-09-20T01:16:00.565907-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1845, session=<CuWHIoYiDoWsFAAB>
+2024-09-20T01:16:00.640001-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1746><Zyf0HoYirMGsFAAB>: Disconnected: Connection closed (SELECT finished 60.011 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:16:17.055926-04:00 mail postfix/postscreen[1813]: CONNECT from [172.20.0.4]:56236 to [172.20.0.3]:25
+2024-09-20T01:16:17.056020-04:00 mail postfix/postscreen[1813]: PASS OLD [172.20.0.4]:56236
+2024-09-20T01:16:17.058117-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:16:17.087962-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:16:17.055926-04:00 mail postfix/postscreen[1813]: CONNECT from [172.20.0.4]:56236 to [172.20.0.3]:25
+2024-09-20T01:16:17.056020-04:00 mail postfix/postscreen[1813]: PASS OLD [172.20.0.4]:56236
+2024-09-20T01:16:17.058117-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:16:17.087962-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+2024-09-20T01:16:17.056020-04:00 mail postfix/postscreen[1813]: PASS OLD [172.20.0.4]:56236
+2024-09-20T01:16:17.058117-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:16:17.087962-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+2024-09-20T01:16:17.058117-04:00 mail postfix/smtpd[1814]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:16:17.087962-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+2024-09-20T01:16:17.087962-04:00 mail policyd-spf[1817]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+receiver=email.quiz.local
+2024-09-20T01:16:17.140480-04:00 mail postfix/smtpd[1814]: NOQUEUE: reject: RCPT from demo_keycloak.cal_default[172.20.0.4]: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey; from=<bot_quiz@email.quiz.local> to=<bot_quiz@email.quiz.local> proto=ESMTP helo=<keycloak.quiz.local.quiz.local>
+2024-09-20T01:16:17.140480-04:00 mail postfix/smtpd[1814]: NOQUEUE: reject: RCPT from demo_keycloak.cal_default[172.20.0.4]: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey; from=<bot_quiz@email.quiz.local> to=<bot_quiz@email.quiz.local> proto=ESMTP helo=<keycloak.quiz.local.quiz.local>
+2024-09-20T01:16:17.142813-04:00 mail postfix/smtpd[1814]: disconnect from demo_keycloak.cal_default[172.20.0.4] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+m=<bot_quiz@email.quiz.local> to=<bot_quiz@email.quiz.local> proto=ESMTP helo=<keycloak.quiz.local.quiz.local>
+2024-09-20T01:16:17.142813-04:00 mail postfix/smtpd[1814]: disconnect from demo_keycloak.cal_default[172.20.0.4] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+2024-09-20T01:16:17.142813-04:00 mail postfix/smtpd[1814]: disconnect from demo_keycloak.cal_default[172.20.0.4] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+2024-09-20T01:17:00.570574-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1937, session=<L3wbJoYigt+sFAAB>
+2024-09-20T01:17:00.570574-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=1937, session=<L3wbJoYigt+sFAAB>
+2024-09-20T01:17:00.648986-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1845><CuWHIoYiDoWsFAAB>: Disconnected: Connection closed (SELECT finished 60.008 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 2024-09-20T01:17:00.648986-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1845><CuWHIoYiDoWsFAAB>: Disconnected: Connection closed (SELECT finished 60.008 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:18:00.578026-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=2029, session=<NRKvKYYisp2sFAAB>
+2024-09-20T01:18:00.660460-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<1937><L3wbJoYigt+sFAAB>: Disconnected: Connection closed (SELECT finished 60.010 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:19:00.566551-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=2121, session=<6nFCLYYiaq2sFAAB>
+2024-09-20T01:19:00.647658-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<2029><NRKvKYYisp2sFAAB>: Disconnected: Connection closed (SELECT finished 59.987 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+2024-09-20T01:19:35.279502-04:00 mail postfix/postscreen[2173]: CONNECT from [172.20.0.4]:37550 to [172.20.0.3]:25
+2024-09-20T01:19:35.279566-04:00 mail postfix/postscreen[2173]: PASS OLD [172.20.0.4]:37550
+2024-09-20T01:19:35.308204-04:00 mail postfix/smtpd[2174]: connect from demo_keycloak.cal_default[172.20.0.4]
+2024-09-20T01:19:35.509384-04:00 mail policyd-spf[2177]: : prepend Received-SPF: None (mailfrom) identity=mailfrom; client-ip=172.20.0.4; helo=keycloak.quiz.local.quiz.local; envelope-from=bot_quiz@email.quiz.local; receiver=email.quiz.local
+2024-09-20T01:19:35.586355-04:00 mail postfix/smtpd[2174]: NOQUEUE: reject: RCPT from demo_keycloak.cal_default[172.20.0.4]: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey; from=<bot_quiz@email.quiz.local> to=<bot_quiz@email.quiz.local> proto=ESMTP helo=<keycloak.quiz.local.quiz.local>
+2024-09-20T01:19:35.589091-04:00 mail postfix/smtpd[2174]: disconnect from demo_keycloak.cal_default[172.20.0.4] ehlo=1 mail=1 rcpt=0/1 rset=1 quit=1 commands=4/5
+2024-09-20T01:20:00.588075-04:00 mail dovecot: imap-login: Login: user=<bot_quiz@email.quiz.local>, method=PLAIN, rip=172.20.0.1, lip=172.20.0.3, mpid=2219, session=<K0jWMIYiprSsFAAB>
+2024-09-20T01:20:00.683161-04:00 mail dovecot: imap(bot_quiz@email.quiz.local)<2121><6nFCLYYiaq2sFAAB>: Disconnected: Connection closed (SELECT finished 60.034 secs ago) in=80 out=1524 deleted=0 expunged=0 trashed=0 hdr_count=0 hdr_bytes=0 body_count=0 body_bytes=0
+

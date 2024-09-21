@@ -1,0 +1,172 @@
+Updating the configuration and installing your custom providers, if any. Please wait.
+2024-09-20 05:08:41,909 INFO  [io.qua.dep.QuarkusAugmentor] (main) Quarkus augmentation completed in 12033ms
+2024-09-20 05:08:48,589 INFO  [org.infinispan.CONTAINER] (ForkJoinPool.commonPool-worker-1) ISPN000556: Starting user marshaller 'org.infinispan.jboss.marshalling.core.JBossUserMarshaller'
+2024-09-20 05:08:50,060 INFO  [org.keycloak.broker.provider.AbstractIdentityProviderMapper] (main) Registering class org.keycloak.broker.provider.mappersync.ConfigSyncEventListener
+2024-09-20 05:08:51,653 INFO  [org.keycloak.quarkus.runtime.storage.legacy.liquibase.QuarkusJpaUpdaterProvider] (main) Initializing database schema. Using changelog META-INF/jpa-changelog-master.xml
+
+UPDATE SUMMARY
+Run:                        134
+Previously run:               0
+Filtered out:                 0
+-------------------------------
+Total change sets:          134
+
+2024-09-20 05:09:16,391 INFO  [org.keycloak.connections.infinispan.DefaultInfinispanConnectionProviderFactory] (main) Node name: node_640161, Site name: null
+2024-09-20 05:09:16,703 INFO  [org.keycloak.services] (main) KC-SERVICES0050: Initializing master realm
+2024-09-20 05:09:20,648 INFO  [org.keycloak.services] (main) KC-SERVICES0009: Added user 'admin' to realm 'master'
+2024-09-20 05:09:20,817 INFO  [io.quarkus] (main) Keycloak 25.0.6 on JVM (powered by Quarkus 3.8.5) started in 38.623s. Listening on: http://0.0.0.0:8080. Management interface listening on http://0.0.0.0:9000.
+2024-09-20 05:09:20,817 INFO  [io.quarkus] (main) Profile dev activated.
+2024-09-20 05:09:20,818 INFO  [io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm, jdbc-postgresql, keycloak, logging-gelf, micrometer, narayana-jta, reactive-routes, resteasy-reactive, resteasy-reactive-jackson, smallrye-context-propagation, smallrye-health, vertx]
+2024-09-20 05:09:20,825 WARN  [org.keycloak.quarkus.runtime.KeycloakMain] (main) Running the server in development mode. DO NOT use this configuration in production.
+2024-09-20 05:15:54,613 ERROR [org.keycloak.services] (executor-thread-4) KC-SERVICES0029: Failed to send email: jakarta.mail.SendFailedException: Invalid Addresses;
+  nested exception is:
+        org.eclipse.angus.mail.smtp.SMTPAddressFailedException: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey
+
+        at org.eclipse.angus.mail.smtp.SMTPTransport.rcptTo(SMTPTransport.java:2112)
+        at org.eclipse.angus.mail.smtp.SMTPTransport.sendMessage(SMTPTransport.java:1317)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:158)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:66)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:282)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:276)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.sendSmtpTestEmail(FreeMarkerEmailTemplateProvider.java:127)
+        at org.keycloak.services.resources.admin.RealmAdminResource.testSMTPConnection(RealmAdminResource.java:1008)
+        at org.keycloak.services.resources.admin.RealmAdminResource$quarkusrestinvoker$testSMTPConnection_0bc3cac9c894e7b29eb4c1f2d80a099cba7bdf38.invoke(Unknown Source)
+        at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+        at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+        at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+        at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+        at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+        at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+        at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+        at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+        at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+        at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.eclipse.angus.mail.smtp.SMTPAddressFailedException: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey
+
+        at org.eclipse.angus.mail.smtp.SMTPTransport.rcptTo(SMTPTransport.java:1962)
+        ... 18 more
+
+org.keycloak.email.EmailException: jakarta.mail.SendFailedException: Invalid Addresses;
+  nested exception is:
+        org.eclipse.angus.mail.smtp.SMTPAddressFailedException: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey
+
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:161)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:66)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:282)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:276)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.sendSmtpTestEmail(FreeMarkerEmailTemplateProvider.java:127)
+        at org.keycloak.services.resources.admin.RealmAdminResource.testSMTPConnection(RealmAdminResource.java:1008)
+        at org.keycloak.services.resources.admin.RealmAdminResource$quarkusrestinvoker$testSMTPConnection_0bc3cac9c894e7b29eb4c1f2d80a099cba7bdf38.invoke(Unknown Source)
+        at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+        at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+        at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+        at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+        at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+        at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+        at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+        at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+        at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+        at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: jakarta.mail.SendFailedException: Invalid Addresses;
+  nested exception is:
+        org.eclipse.angus.mail.smtp.SMTPAddressFailedException: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey
+
+        at org.eclipse.angus.mail.smtp.SMTPTransport.rcptTo(SMTPTransport.java:2112)
+        at org.eclipse.angus.mail.smtp.SMTPTransport.sendMessage(SMTPTransport.java:1317)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:158)
+        ... 16 more
+Caused by: org.eclipse.angus.mail.smtp.SMTPAddressFailedException: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey
+
+        at org.eclipse.angus.mail.smtp.SMTPTransport.rcptTo(SMTPTransport.java:1962)
+        ... 18 more
+2024-09-20 05:15:54,617 ERROR [org.keycloak.services.resources.admin.RealmAdminResource] (executor-thread-4) Failed to send email
+ jakarta.mail.SendFailedException: Invalid Addresses;
+  nested exception is:
+        org.eclipse.angus.mail.smtp.SMTPAddressFailedException: 450 4.2.0 <bot_quiz@email.quiz.local>: Recipient address rejected: Delayed by Postgrey
+
+2024-09-20 05:15:57,650 ERROR [org.keycloak.services] (executor-thread-4) KC-SERVICES0029: Failed to send email: jakarta.mail.MessagingException: Could not connect to SMTP host: mail.quiz.local, port: 465;
+  nested exception is:
+        javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
+        at org.eclipse.angus.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2260)
+org.keycloak.email.EmailException: jakarta.mail.MessagingException: Could not connect to SMTP host: mail.quiz.local, port: 465;
+  nested exception is:
+        javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:161)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:66)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:282)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:276)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.sendSmtpTestEmail(FreeMarkerEmailTemplateProvider.java:127)
+        at org.eclipse.angus.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:753)
+        at jakarta.mail.Service.connect(Service.java:342)
+        at jakarta.mail.Service.connect(Service.java:222)
+        at jakarta.mail.Service.connect(Service.java:243)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:153)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:66)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:282)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.send(FreeMarkerEmailTemplateProvider.java:276)
+        at org.keycloak.email.freemarker.FreeMarkerEmailTemplateProvider.sendSmtpTestEmail(FreeMarkerEmailTemplateProvider.java:127)
+        at org.keycloak.services.resources.admin.RealmAdminResource.testSMTPConnection(RealmAdminResource.java:1008)
+        at org.keycloak.services.resources.admin.RealmAdminResource$quarkusrestinvoker$testSMTPConnection_0bc3cac9c894e7b29eb4c1f2d80a099cba7bdf38.invoke(Unknown Source)
+        at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+        at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+        at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+        at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+        at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+        at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+        at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+        at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+        at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+        at org.keycloak.services.resources.admin.RealmAdminResource.testSMTPConnection(RealmAdminResource.java:1008)
+        at org.keycloak.services.resources.admin.RealmAdminResource$quarkusrestinvoker$testSMTPConnection_0bc3cac9c894e7b29eb4c1f2d80a099cba7bdf38.invoke(Unknown Source)
+        at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+        at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+        at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+        at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+        at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+        at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+        at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
+        at java.base/sun.security.ssl.SSLSocketInputRecord.handleUnknownRecord(SSLSocketInputRecord.java:462)
+        at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:175)
+        at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+        at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1506)
+        at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1421)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:455)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:426)
+        at org.eclipse.angus.mail.util.SocketFetcher.configureSSLSocket(SocketFetcher.java:628)
+        at org.eclipse.angus.mail.util.SocketFetcher.createSocket(SocketFetcher.java:402)
+        at org.eclipse.angus.mail.util.SocketFetcher.getSocket(SocketFetcher.java:236)
+        at org.eclipse.angus.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2208)
+        ... 21 more
+
+        at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+        at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+        at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+        at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: jakarta.mail.MessagingException: Could not connect to SMTP host: mail.quiz.local, port: 465;
+  nested exception is:
+        javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
+        at org.eclipse.angus.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2260)
+        at org.eclipse.angus.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:753)
+        at jakarta.mail.Service.connect(Service.java:342)
+        at jakarta.mail.Service.connect(Service.java:222)
+        at jakarta.mail.Service.connect(Service.java:243)
+        at org.keycloak.email.DefaultEmailSenderProvider.send(DefaultEmailSenderProvider.java:153)
+        ... 16 more
+Caused by: javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
+        at java.base/sun.security.ssl.SSLSocketInputRecord.handleUnknownRecord(SSLSocketInputRecord.java:462)
+        at java.base/sun.security.ssl.SSLSocketInputRecord.decode(SSLSocketInputRecord.java:175)
+        at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:111)
+        at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1506)
+        at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1421)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:455)
+        at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:426)
+        at org.eclipse.angus.mail.util.SocketFetcher.configureSSLSocket(SocketFetcher.java:628)
+        at org.eclipse.angus.mail.util.SocketFetcher.createSocket(SocketFetcher.java:402)
+        at org.eclipse.angus.mail.util.SocketFetcher.getSocket(SocketFetcher.java:236)
+        at org.eclipse.angus.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2208)
+        ... 21 more
+2024-09-20 05:15:57,654 ERROR [org.keycloak.services.resources.admin.RealmAdminResource] (executor-thread-4) Failed to send email
+ jakarta.mail.MessagingException: Could not connect to SMTP host: mail.quiz.local, port: 465;
+  nested exception is:
+        javax.net.ssl.SSLException: Unsupported or unrecognized SSL message
