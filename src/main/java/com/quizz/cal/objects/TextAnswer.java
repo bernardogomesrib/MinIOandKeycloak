@@ -14,13 +14,13 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Answer {
+public class TextAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String value;
     private boolean isCorrect;
-
+    
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;

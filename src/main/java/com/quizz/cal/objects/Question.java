@@ -23,10 +23,13 @@ public class Question {
     private long id;
     @OneToMany
     @NotNull(message = "Question must have at least one answer")
-    private List<Answer> answers;
+    private List<TextAnswer> answers;
     @NotNull(message = "Question must have a question")
     private String question;
     
+
+    @ManyToMany
+    private List<FileAnswer> fileAnswers;
     
     @ManyToMany
     private List<QuestionText> questionTexts;
