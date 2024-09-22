@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Entity
@@ -22,11 +23,11 @@ public class QuestionText {
     @Column(length = 5000)
     @NotNull
     private String value;
-    
+    @Positive(message = "Order must be positive")
+    private int sequencialOrder;
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
-
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;

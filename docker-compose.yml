@@ -44,7 +44,7 @@ services:
     hostname: keycloak.quiz.local
     domainname: quiz.local
     ports:
-      - "8080:8080"
+      - "9080:8080"
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: senha1234

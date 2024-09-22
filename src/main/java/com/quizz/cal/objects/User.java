@@ -1,9 +1,13 @@
 package com.quizz.cal.objects;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -12,7 +16,7 @@ import lombok.Data;
 @Table(name = "user_entity")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
     private String email;
     private String first_name;
@@ -21,7 +25,13 @@ public class User {
     private String username;
     private boolean enabled;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<UserAnswerToQuiz> userAnswerToQuizzes;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Quiz> participationList;
     public String getFullName() {
         return this.first_name + " " + this.last_name;
     }
+
 }

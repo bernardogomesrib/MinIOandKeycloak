@@ -6,12 +6,15 @@ import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.quizz.cal.objects.fileObjects.FileAnswer;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 @Data
@@ -20,8 +23,12 @@ public class UserAnswerToQuiz {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ManyToOne
     private Quiz quiz;
+
+    @ManyToOne
     private User user;
+    
     private int score;
     
     @ManyToMany
@@ -45,4 +52,8 @@ public class UserAnswerToQuiz {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
+
+
+
+
 }

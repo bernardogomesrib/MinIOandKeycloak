@@ -26,9 +26,6 @@ public class OpenQuestionAnswer {
     @NotNull(message = "Answer cannot be null")
     @NotBlank(message = "Answer cannot be empty")
     private String answer;
-    @NotNull(message = "Answer must have a user")
-    private User user;
-    
     
     @NotNull(message = "Question cannot be null")
     @ManyToOne(fetch = FetchType.LAZY)
