@@ -5,14 +5,29 @@
     "description": "A description for 'application.url'"
   },
   {
-    "name": "minio.access-key",
+    "name": "keycloak.username",
     "type": "java.lang.String",
-    "description": "A description for 'minio.access-key'"
+    "description": "A description for 'keycloak.username'"
   },
   {
-    "name": "minio.secret-key",
+    "name": "keycloak.password",
     "type": "java.lang.String",
-    "description": "A description for 'minio.secret-key'"
+    "description": "A description for 'keycloak.password'"
+  },
+  {
+    "name": "keycloak.realm",
+    "type": "java.lang.String",
+    "description": "A description for 'keycloak.realm'"
+  },
+  {
+    "name": "keycloak.client",
+    "type": "java.lang.String",
+    "description": "A description for 'keycloak.client'"
+  },
+  {
+    "name": "keycloak.granttype",
+    "type": "java.lang.String",
+    "description": "A description for 'keycloak.granttype'"
   },
   {
     "name": "minio.url",
@@ -20,8 +35,18 @@
     "description": "A description for 'minio.url'"
   },
   {
-    "name": "minio.url",
+    "name": "minio.accessKey",
     "type": "java.lang.String",
-    "description": "A description for 'minio.url'"
+    "description": "A description for 'minio.accessKey'"
+  },
+  {
+    "name": "minio.access.key",
+    "type": "java.lang.String",
+    "description": "A description for 'minio.access.key'"
+  },
+  {
+    "name": "minio.secret.key",
+    "type": "java.lang.String",
+    "description": "A description for 'minio.secret.key'"
   }
 ]}

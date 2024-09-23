@@ -20,13 +20,14 @@ services:
       - "9000:9000"
       - "9090:9090"
     environment:
-      MINIO_ACCESS_KEY: minio
-      MINIO_SECRET_KEY: minio123
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
       MINIO_VOLUMES: "/data"
       MINIO_NOTIFY_POSTGRES_ENABLE: "on"
       MINIO_NOTIFY_POSTGRES_CONNECTION_STRING: "host=demo_dbPostgressquiz user=usuario password=senha1234 dbname=postgres sslmode=disable"
       MINIO_NOTIFY_POSTGRES_TABLE: "minio"
       MINIO_NOTIFY_POSTGRES_FORMAT: "namespace"
+      
     volumes:
       - ./minio-data:/data
     command: server --console-address ":9090" /data

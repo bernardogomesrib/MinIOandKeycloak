@@ -31,7 +31,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         servers = {
                 @Server(
                         description = "Local ENV",
-                        url = "http://localhost:8088/api/v1"
+                        url = "http://localhost:8080/"
                 ),
                 @Server(
                         description = "PROD ENV",
@@ -50,9 +50,26 @@ import io.swagger.v3.oas.annotations.servers.Server;
         scheme = "bearer",
         type = SecuritySchemeType.OAUTH2,
         flows = @OAuthFlows(
-                clientCredentials =
-                @OAuthFlow(
-                        authorizationUrl = "http://localhost:8080/realms/quiz/protocol/openid-connect/auth"
+                // clientCredentials =
+                // @OAuthFlow(
+                //         tokenUrl =  "http://localhost:9080/realms/quiz/protocol/openid-connect/token",
+                //         authorizationUrl = "http://localhost:9080/realms/quiz/protocol/openid-connect/auth"
+                // )
+                // ,
+                // password = @OAuthFlow(
+                //         tokenUrl = "http://localhost:9080/realms/quiz/protocol/openid-connect/token",
+                //         authorizationUrl = "http://localhost:9080/realms/quiz/protocol/openid-connect/auth"
+                // )
+                // ,
+                // authorizationCode = @OAuthFlow(
+                //         tokenUrl = "http://localhost:9080/realms/quiz/protocol/openid-connect/token",
+                //         authorizationUrl = "http://localhost:9080/realms/quiz/protocol/openid-connect/auth"
+                // )
+                // ,
+
+                implicit = @OAuthFlow(
+                        authorizationUrl = "http://localhost:9080/realms/quiz/protocol/openid-connect/auth",
+                        tokenUrl = "http://localhost:9080/realms/quiz/protocol/openid-connect/token"
                 )
         ),
         bearerFormat = "JWT",

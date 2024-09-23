@@ -3,7 +3,6 @@ package com.quizz.cal.security;
 import static java.util.stream.Collectors.*;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -24,20 +23,21 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
                 source,
                 Stream.concat(
                                 new JwtGrantedAuthoritiesConverter().convert(source).stream(),
-                                extractResourceRoles(source).stream())
+                                extractRealmRoles(source).stream())
                         .collect(toSet()));
     }
 
-    private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt jwt) {
-        var resourceAccess = new HashMap<>(jwt.getClaim("resource_access"));
-
+    private Collection<? extends GrantedAuthority> extractRealmRoles(Jwt jwt) {
         @SuppressWarnings("unchecked")
-        var eternal = (Map<String, List<String>>) resourceAccess.get("account");
+        var realmAccess = (Map<String, List<String>>) jwt.getClaim("realm_access");
 
-        var roles = eternal.get("roles");
-
+        var roles = realmAccess.get("roles");
+        
+        // roles.stream()
+        //         .forEach(role -> System.out.println(role));
+                
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.replace("-", "_")))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(toSet());
     }
 }
