@@ -20,7 +20,7 @@
     "description": "A description for 'keycloak.realm'"
   },
   {
-    "name": "keycloak.client",
+    "name": "keycloak.clientid",
     "type": "java.lang.String",
     "description": "A description for 'keycloak.client'"
   },
@@ -48,5 +48,15 @@
     "name": "minio.secret.key",
     "type": "java.lang.String",
     "description": "A description for 'minio.secret.key'"
+  },
+  {
+    "name": "keycloak.master.realm",
+    "type": "java.lang.String",
+    "description": "A description for 'keycloak.master.realm'"
+  },
+  {
+    "name": "keycloak.master.create.user",
+    "type": "java.lang.String",
+    "description": "A description for 'keycloak.master.create.user'"
   }
 ]}

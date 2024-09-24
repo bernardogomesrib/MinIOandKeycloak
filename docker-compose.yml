@@ -56,6 +56,7 @@ services:
       KC_DB_USERNAME: usuario
       KC_DB_PASSWORD: senha1234
       KC_HOSTNAME: localhost
+      KC_LOG_LEVEL: DEBUG
     depends_on:
       - demo_dbPostgressquiz
     command: ["start-dev"]
