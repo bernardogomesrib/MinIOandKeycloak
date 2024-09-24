@@ -27,6 +27,8 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDone;
     
     @NotNull(message = "Question must have a question")
     private String question;

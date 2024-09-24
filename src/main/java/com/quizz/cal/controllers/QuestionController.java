@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.quizz.cal.JPA.QuestionJPA;
 import com.quizz.cal.objects.Question;
+import com.quizz.cal.objects.User;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
@@ -32,7 +35,13 @@ public class QuestionController {
     @PreAuthorize("hasRole('professor')")
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping()
-    public Question post(@RequestBody Question entity) {
+    public Question post(@RequestBody Question entity,@AuthenticationPrincipal Jwt jwt) {
+        User u = new User();
+        u.setId(jwt.getClaim("sub"));
+        u.setEmail(jwt.getClaim("email"));
+        u.setFirst_name(jwt.getClaim("given_name"));
+        u.setLast_name(jwt.getClaim("family_name"));
+        entity.setAuthor(u);
         questionJPA.save(entity);
         return entity;
     }
@@ -45,8 +54,8 @@ public class QuestionController {
     @PreAuthorize("hasRole('professor')")
     @SecurityRequirement(name = "bearerAuth")
     @PutMapping()
-    public Question putMethodName(@RequestBody Question entity) {
-        var r = questionJPA.findById(entity.getId());
+    public Question putMethodName(@RequestBody Question entity,@AuthenticationPrincipal Jwt jwt) {
+        var r = questionJPA.findByIdAndAuthorId(entity.getId(),jwt.getClaim("sub"));
         if(r.isPresent()) {
             Question q = questionJPA.save(entity);
             return q;
@@ -57,8 +66,8 @@ public class QuestionController {
     @PreAuthorize("hasRole('professor')")
     @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping({"{id}"})
-    public boolean deleteMethodName(@PathVariable long id) {
-        var r = questionJPA.findById(id);
+    public boolean deleteMethodName(@PathVariable long id,@AuthenticationPrincipal Jwt jwt) {
+        var r = questionJPA.findByIdAndAuthorId(id,jwt.getClaim("sub"));
         if(r.isPresent()) {
             questionJPA.delete(r.get());
             return true;

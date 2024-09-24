@@ -6,21 +6,30 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.quizz.cal.minio.lib.MinIOAnswer;
+
+import io.minio.BucketExistsArgs;
+import io.minio.CopyObjectArgs;
+import io.minio.CopySource;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.ListObjectsArgs;
 import io.minio.MakeBucketArgs;
@@ -33,7 +42,6 @@ import io.minio.errors.ErrorResponseException;
 import io.minio.errors.InsufficientDataException;
 import io.minio.errors.InternalException;
 import io.minio.errors.InvalidResponseException;
-import io.minio.errors.MinioException;
 import io.minio.errors.ServerException;
 import io.minio.errors.XmlParserException;
 import io.minio.http.Method;
@@ -41,6 +49,8 @@ import io.minio.messages.Bucket;
 import io.minio.messages.Item;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+
 
 
 @RestController
@@ -51,19 +61,7 @@ public class MinIOComs {
     private MinioClient minioClient;
 
     
-    @PreAuthorize("hasRole('admin')")
-    @GetMapping("{bucketName}/{objectName}")
-    @Operation(summary = "pega o url de um arquivo com base no nome do bucket e do arquivo")
-    public String getFileUrl(@PathVariable String bucketName, @PathVariable String objectName) throws Exception {
-        return minioClient.getPresignedObjectUrl(
-            GetPresignedObjectUrlArgs.builder()
-                .method(Method.GET)
-                .bucket(bucketName)
-                .object(objectName)
-                .expiry(60 * 60)
-                .build()
-        );
-    }
+    
     
     @PreAuthorize("hasRole('admin')")
     @PostMapping(value = "{bucketName}/{fileName}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -80,14 +78,14 @@ public class MinIOComs {
                             .contentType(file.getContentType())
                             .build()
             );
+            
+            return ResponseEntity.status(HttpStatus.OK).body(new MinIOAnswer(fileName, "File uploaded successfully!").toString());
 
-            return ResponseEntity.status(HttpStatus.OK).body("File uploaded successfully!");
-
-        } catch (MinioException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+        } catch (Exception e) {
         
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("An error occurred while uploading the file: " + e.getMessage());
+                    .body(new MinIOAnswer(null, "An error occurred while uploading the file: " + e.getMessage()).toString());
         }
     }
 
@@ -217,6 +215,93 @@ public class MinIOComs {
         }
     }
 
+    @Operation(summary = "envia um arquivo para o minio em um bucket temporario com o nome do id do usuário")
+    @PreAuthorize("hasRole('professor')")
+    @PostMapping(value = "professor", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> postFilesForQuestions(@RequestParam MultipartFile file,@AuthenticationPrincipal Jwt jwt) {
+        try {
+            String dateTime = java.time.LocalDateTime.now().toString();
+            String nome = UUID.randomUUID().toString();
+            String fileName = nome+"_"+dateTime;
+            if(minioClient.bucketExists(BucketExistsArgs.builder().bucket(jwt.getClaim("sub")).build())){
+                return uploadFile(jwt.getClaim("sub"), fileName, file);
+            }else{
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket(jwt.getClaim("sub")).build());
+                return uploadFile(jwt.getClaim("sub"), fileName, file);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+    @PreAuthorize("hasRole('aluno')")
+    @GetMapping("{bucketName}/{objectName}")
+    @Operation(summary = "pega o url de um arquivo com base no nome do bucket e do arquivo")
+    public ResponseEntity<?> getFileUrl(@PathVariable String bucketName, @PathVariable String objectName) throws Exception {
+        try {
+            
+            return ResponseEntity.status(200).body( minioClient.getPresignedObjectUrl(
+                                                        GetPresignedObjectUrlArgs.builder()
+                                                            .method(Method.GET)
+                                                            .bucket(bucketName)
+                                                            .object(objectName)
+                                                            .expiry(60 * 60)
+                                                            .build()
+                                                        ));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+        
+    }
+    @Operation(summary = "envia um arquivo do bucket temporario para um bucket eterno com o nome do id do usuário")
+    @PreAuthorize("hasRole('professor')")
+    @PutMapping("professor/{fileName}")
+    public ResponseEntity<?> putMethodName(@PathVariable String fileName, @AuthenticationPrincipal Jwt jwt) {
+        try {
+            boolean objectExists = false;
+            Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder().bucket(jwt.getClaim("sub")).build());
+            for (Result<Item> result : results) {
+                Item item = result.get();
+                if (item.objectName().equals(fileName)) {
+                    objectExists = true;
+                    break;
+                }
+            }
+            if(objectExists){
+                minioClient.copyObject(
+                    CopyObjectArgs.builder()
+                        .bucket("eternal"+jwt.getClaim("sub"))
+                        .object(fileName)
+                        .source(
+                            CopySource.builder()
+                                .bucket(jwt.getClaim("sub"))
+                                .object(fileName)
+                                .build())
+                        .build());
+                minioClient.removeObject(RemoveObjectArgs.builder().bucket(jwt.getClaim("sub")).object(fileName).build());
+                return ResponseEntity.status(200).body("O arquivo foi salvo com sucesso!");
+            }else{
+                return ResponseEntity.status(404).body("O arquivo não foi encontrado!");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("hasRole('professor')")
+    @DeleteMapping("professor/")
+    @Operation(summary = "deleta todos os arquivos do bucket temporario com o id do usuário")
+    public ResponseEntity<?> deleteAllFiles(@AuthenticationPrincipal Jwt jwt) {
+        try {
+            Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder().bucket(jwt.getClaim("sub")).build());
+            for (Result<Item> result : results) {
+                Item item = result.get();
+                minioClient.removeObject(RemoveObjectArgs.builder().bucket(jwt.getClaim("sub")).object(item.objectName()).build());
+            }
+            return ResponseEntity.status(200).body("Todos os arquivos foram deletados com sucesso!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
 }
 
 
