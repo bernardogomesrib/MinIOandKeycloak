@@ -11,6 +11,8 @@ services:
       POSTGRES_DB: postgres
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - juntatudo
 
   demo_minio:
     container_name: demo_minio
@@ -27,17 +29,19 @@ services:
       MINIO_NOTIFY_POSTGRES_CONNECTION_STRING: "host=demo_dbPostgressquiz user=usuario password=senha1234 dbname=postgres sslmode=disable"
       MINIO_NOTIFY_POSTGRES_TABLE: "minio"
       MINIO_NOTIFY_POSTGRES_FORMAT: "namespace"
-      
     volumes:
       - ./minio-data:/data
-    command: server --console-address ":9090" /data
+    command: server --console-address "0.0.0.0:9090" /data --address 0.0.0.0:9000
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      #test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ["CMD", "curl", "-f"]
       interval: 30s
       timeout: 20s
       retries: 3
     depends_on:
       - demo_dbPostgressquiz
+    networks:
+      - juntatudo
   demo_keycloak:
     container_name: demo_keycloak
     image: quay.io/keycloak/keycloak
@@ -55,16 +59,22 @@ services:
       KC_DB_URL: jdbc:postgresql://demo_dbPostgressquiz:5432/postgres
       KC_DB_USERNAME: usuario
       KC_DB_PASSWORD: senha1234
-      KC_HOSTNAME: localhost
-      KC_LOG_LEVEL: DEBUG
+      #KC_HOSTNAME: localhost
+      #KC_LOG_LEVEL: DEBUG
     depends_on:
       - demo_dbPostgressquiz
-    command: ["start-dev"]
+    command: ["start-dev","--http-host=0.0.0.0"]
     volumes:
       - ./keycloak-data:/opt/jboss/keycloak/standalone/data
       - ./keycloak-themes:/opt/jboss/keycloak/themes
       - ./keycloak-realm:/opt/jboss/keycloak/standalone/configuration/keycloak-realm.json
-  
+    networks:
+      - juntatudo
+    
+networks:
+  juntatudo:
+    driver: bridge
+    
   # mailserver:
   #   image: ghcr.io/docker-mailserver/docker-mailserver:latest
   #   container_name: mailserver

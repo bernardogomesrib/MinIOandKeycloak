@@ -39,16 +39,21 @@ import io.minio.errors.XmlParserException;
 import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import io.minio.messages.Item;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 
 @RestController
 @RequestMapping("/files")
+@SecurityRequirement(name = "bearerAuth")
 public class MinIOComs {
     @Autowired
     private MinioClient minioClient;
 
+    
+    @PreAuthorize("hasRole('admin')")
     @GetMapping("{bucketName}/{objectName}")
+    @Operation(summary = "pega o url de um arquivo com base no nome do bucket e do arquivo")
     public String getFileUrl(@PathVariable String bucketName, @PathVariable String objectName) throws Exception {
         return minioClient.getPresignedObjectUrl(
             GetPresignedObjectUrlArgs.builder()
@@ -59,8 +64,10 @@ public class MinIOComs {
                 .build()
         );
     }
-
+    
+    @PreAuthorize("hasRole('admin')")
     @PostMapping(value = "{bucketName}/{fileName}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "envia um arquivo para o minio com base no nome do bucket e do arquivo")
     public ResponseEntity<String> uploadFile(@PathVariable String bucketName, @PathVariable String fileName, @RequestParam("file") MultipartFile file) {
         try {
             InputStream inputStream = file.getInputStream();
@@ -85,6 +92,8 @@ public class MinIOComs {
     }
 
     @GetMapping()
+    @PreAuthorize("hasRole('admin')")
+    @Operation(summary = "pega o nome de todos os buckets")
     public List<String> getBuckets() throws ServerException, XmlParserException, ErrorResponseException, InsufficientDataException, InternalException, InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException {
         ArrayList<String> bucketNames = new ArrayList<String>();
         List<Bucket> buckets = minioClient.listBuckets();
@@ -94,7 +103,7 @@ public class MinIOComs {
         return bucketNames.subList(0, bucketNames.size());
     }
 
-    @SecurityRequirement(name = "bearerAuth")
+    @Operation(summary = "cria um bucket com base no nome entregue")
     @PostMapping("{bucketName}")
     @PreAuthorize("hasRole('admin')")
     public void createBucket(@PathVariable String bucketName) throws ServerException, XmlParserException, ErrorResponseException, InsufficientDataException, InternalException, InvalidKeyException, InvalidResponseException, IOException, NoSuchAlgorithmException {
@@ -104,7 +113,9 @@ public class MinIOComs {
         );
     }
 
+    @PreAuthorize("hasRole('admin')")
     @PostMapping(value = "temp", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "envia um arquivo para o minio no bucket temp")
     public ResponseEntity<?> postMethodName(@RequestParam("file") MultipartFile file) {
         try {
             System.out.println(file.getOriginalFilename());
@@ -127,8 +138,10 @@ public class MinIOComs {
                     .body("An error occurred while uploading the file: " + e.getMessage());
         }
     }
- 
+    
+    @PreAuthorize("hasRole('admin')")
     @GetMapping("etag/{etag}")
+    @Operation(summary = "pega o url de um arquivo que está no bucket temp com base no etag")
     public ResponseEntity<?> getPegarObjetoViaEtag(@PathVariable String etag) {
         try {
                 etag = "\""+etag+"\"";
@@ -151,7 +164,10 @@ public class MinIOComs {
         }
         return ResponseEntity.status(404).body("File not found");
     }
+    
+    @PreAuthorize("hasRole('admin')")
     @DeleteMapping("delete/{bucketName}/{etag}")
+    @Operation(summary = "deleta um arquivo com base no nome do bucket e do etag")
     public ResponseEntity<?> deleteFile(@PathVariable String bucketName, @PathVariable String etag) {
         try {
             etag = "\""+etag+"\"";
@@ -169,7 +185,10 @@ public class MinIOComs {
             return ResponseEntity.status(500).body("An error occurred while deleting the file: " + e.getMessage());
         }
     }
+
+    @PreAuthorize("hasRole('admin')")
     @DeleteMapping("delete/{bucketName}")
+    @Operation(summary = "deleta um bucket com base no nome do bucket")
     public ResponseEntity<?> deleteBucket(@PathVariable String bucketName) {
         try {
             minioClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
@@ -179,9 +198,13 @@ public class MinIOComs {
             return ResponseEntity.status(500).body("An error occurred while deleting the bucket: " + e.getMessage());
         }
     }
+    
+    @PreAuthorize("hasRole('admin')")
     @DeleteMapping("delete")
+    @Operation(summary = "deleta todos os arquivos do bucket temp")
     public ResponseEntity<?> deleteAllEntity() {
         try {
+
             Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder().bucket("temp").build());
             for (Result<Item> result : results) {
                 Item item = result.get();
@@ -193,6 +216,7 @@ public class MinIOComs {
             return ResponseEntity.status(500).body("An error occurred while deleting the files: " + e.getMessage());
         }
     }
+
 }
 
 
