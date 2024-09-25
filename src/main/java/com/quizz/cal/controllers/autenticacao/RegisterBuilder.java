@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 @Data
-public class RegisterRequestFuncionaPorfavor {
+public class RegisterBuilder {
     
         @Email
         private String email;

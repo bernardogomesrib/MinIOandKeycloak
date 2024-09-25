@@ -63,7 +63,7 @@ public class AuthController {
     }
     @Operation(summary = "EndPoint para criar uma conta na api")
     @PostMapping("create")
-    public ResponseEntity<?> createAccount(@RequestBody RegisterRequestFuncionaPorfavor userr) {
+    public ResponseEntity<?> createAccount(@RequestBody RegisterBuilder userr) {
         try {
             RegisterRequest user = userr.toRegisterRequest();
             HttpHeaders headers = new HttpHeaders();
