@@ -165,7 +165,7 @@ public class AuthController {
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(formData, headers);
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:9080/realms/quiz/protocol/openid-connect/token", request, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(issuerUri+"/protocol/openid-connect/token", request, String.class);
 
             return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
         } catch (Exception e) {

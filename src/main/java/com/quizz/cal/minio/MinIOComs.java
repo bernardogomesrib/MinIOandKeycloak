@@ -238,7 +238,9 @@ public class MinIOComs {
     @Operation(summary = "pega o url de um arquivo com base no nome do bucket e do arquivo")
     public ResponseEntity<?> getFileUrl(@PathVariable String bucketName, @PathVariable String objectName) throws Exception {
         try {
-            
+            if(!bucketName.contains("eternal")){
+                return ResponseEntity.status(403).body("Você não tem permissão para acessar esse arquivo!");
+            }
             return ResponseEntity.status(200).body( minioClient.getPresignedObjectUrl(
                                                         GetPresignedObjectUrlArgs.builder()
                                                             .method(Method.GET)
