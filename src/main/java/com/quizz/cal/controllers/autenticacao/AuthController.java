@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 
 @RestController
@@ -34,8 +37,9 @@ public class AuthController {
     private String realmLinkMaster;
     @Value("${keycloak.master.create.user}")
     private String createUserLinkMaster;
-
-
+    @Value("${spring.security.oauth2.authorizationserver.endpoint.oidc.logout-uri}")
+    private String logoutLinkUsuario;
+    @Operation(summary = "EndPoint para fazer login na api")
     @PostMapping("login")
     public ResponseEntity<?> postLogin(@RequestBody LoginRequest loginRequest) {
         try {
@@ -57,7 +61,7 @@ public class AuthController {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
-
+    @Operation(summary = "EndPoint para criar uma conta na api")
     @PostMapping("create")
     public ResponseEntity<?> createAccount(@RequestBody RegisterRequestFuncionaPorfavor userr) {
         try {
@@ -99,6 +103,7 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "EndPoint para atualizar o token")
     @PostMapping("update")
     public ResponseEntity<?> updateToken(@RequestBody String refresh_token) {
         try{
@@ -117,7 +122,23 @@ public class AuthController {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }
-    
+
+    @Operation(summary = "EndPoint para fazer logout")
+    @GetMapping("logout")
+    public ResponseEntity<?> postLogout(@RequestBody String refresh_token) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+            formData.add("client_id", clientId);
+            formData.add("refresh_token",refresh_token);
+            HttpEntity<MultiValueMap<String, String>>  request = new HttpEntity<>(formData, headers);
+            RestTemplate restTemplate = new RestTemplate();
+            return restTemplate.postForEntity(logoutLinkUsuario, request, String.class);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
+    }
 
     public void logoffAdmin(String refresh_token){
         HttpHeaders headers = new HttpHeaders();
@@ -129,9 +150,6 @@ public class AuthController {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForEntity(realmLinkMaster.replace("token", "logout"), request, String.class);
     }
-
-
-
 
 
     public ResponseEntity<?> loginDoCreate(LoginRequest loginRequest) {
