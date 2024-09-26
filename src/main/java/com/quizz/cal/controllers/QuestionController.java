@@ -27,7 +27,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController()
 @RequestMapping("/question")
-
 public class QuestionController {
 
     @Autowired
@@ -49,7 +48,13 @@ public class QuestionController {
     @GetMapping("{id}")
     public ResponseEntity<Question> get(@PathVariable long id) {
         Optional<Question> question = questionJPA.findById(id);
-        return question.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        if(question.isPresent()) {
+            //System.out.println("entregando resposta");
+            return ResponseEntity.status(200).body(question.get());
+        }else{
+            //System.out.println("não encontrei");
+            return ResponseEntity.status(404).build();
+        }
     }
     @PreAuthorize("hasRole('professor')")
     @SecurityRequirement(name = "bearerAuth")
