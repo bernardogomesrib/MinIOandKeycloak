@@ -252,12 +252,12 @@ public class MinIOComs {
     @Operation(summary = "pega o url de um arquivo com base no nome do bucket e do arquivo",responses = {
         @ApiResponse(description = "URL do arquivo", content = @Content(mediaType = "application/json", schema = @Schema(implementation = MinIoFileUrl.class)))
     })
-    public ResponseEntity<?> getFileUrl(@PathVariable String bucketName, @PathVariable String objectName)
+    public MinIoFileUrl getFileUrl(@PathVariable String bucketName, @PathVariable String objectName)
             throws Exception {
         try {
             if (!bucketName.contains("eternal")) {
                 MinIoFileUrl response = new MinIoFileUrl(null, "You don't have permission to access this file");
-                return ResponseEntity.status(403).body(response);
+                return response;
             }
             String url = minioClient.getPresignedObjectUrl(
                     GetPresignedObjectUrlArgs.builder()
@@ -267,9 +267,10 @@ public class MinIOComs {
                             .expiry(60 * 60)
                             .build());
             MinIoFileUrl response = new MinIoFileUrl(url, "file found");
-            return ResponseEntity.status(200).body(response);
+            return response;
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(e.getMessage());
+            MinIoFileUrl response = new MinIoFileUrl(null, e.getMessage());
+            return response;
         }
 
     }
@@ -379,7 +380,7 @@ public class MinIOComs {
         }
     }
 
-    public ResponseEntity<?> pegaProfilePicture(String fileName) {
+    public MinIoFileUrl pegaProfilePicture(String fileName) {
         String bucketName = "profilepictures";
         try {
             String url = minioClient.getPresignedObjectUrl(
@@ -390,10 +391,10 @@ public class MinIOComs {
                         .expiry(60 * 60)
                         .build());
             MinIoFileUrl response = new MinIoFileUrl(url, "file found");
-            return ResponseEntity.status(200).body(response);
+            return response;
         } catch (Exception e) {
             MinIoFileUrl response = new MinIoFileUrl(null, e.getMessage());
-            return ResponseEntity.status(500).body(response);
+            return response;
         }
     }
 }
