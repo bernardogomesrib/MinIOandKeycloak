@@ -1,7 +1,7 @@
 services:
   demo_dbPostgressquiz:
     container_name: demo_dbPostgressquiz
-    image: postgres
+    image: postgres:16.4
     restart: always
     ports:
       - "5432:5432"
