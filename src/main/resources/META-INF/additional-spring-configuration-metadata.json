@@ -20,9 +20,9 @@
     "description": "A description for 'keycloak.realm'"
   },
   {
-    "name":"keycloak.realm.id",
-    "type":"java.lang.String",
-    "description":"A description for 'keycloak.realm.id'"
+    "name": "keycloak.realm.id",
+    "type": "java.lang.String",
+    "description": "A description for 'keycloak.realm.id'"
   },
   {
     "name": "keycloak.clientid",
@@ -63,5 +63,15 @@
     "name": "keycloak.master.create.user",
     "type": "java.lang.String",
     "description": "A description for 'keycloak.master.create.user'"
+  },
+  {
+    "name": "publicIp",
+    "type": "java.lang.String",
+    "description": "A description for 'publicIp'"
+  },
+  {
+    "name": "public.ip",
+    "type": "java.lang.String",
+    "description": "A description for 'public.ip'"
   }
 ]}

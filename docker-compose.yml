@@ -59,6 +59,8 @@ services:
       KC_DB_URL: jdbc:postgresql://demo_dbPostgressquiz:5432/postgres
       KC_DB_USERNAME: usuario
       KC_DB_PASSWORD: senha1234
+      KC_COOKIE_SECURE: false
+      KEYCLOAK_COOKIE_SECURE: false
       #KC_HOSTNAME: localhost
       #KC_LOG_LEVEL: DEBUG
     depends_on:
