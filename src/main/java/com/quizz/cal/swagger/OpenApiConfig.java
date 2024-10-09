@@ -12,10 +12,10 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(info = @Info(title = "Quiz", version = "1", description = "API desenvolvida para desenvolvimento de conhecimento"),servers = {
-        @Server(
+        /* @Server(
                 url = "http://179.73.180.94:4200/api/",
                 description = "Remote server via Angular proxy"
-        ),
+        ), */
         @Server(
         url = "http://localhost:8080",
         description = "Local server"
@@ -24,10 +24,10 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 url = "http://localhost:4200/api/",
                 description = "Local server via Angular proxy"
         ),
-        @Server(
+       /*  @Server(
                 url = "http://179.73.180.94:8080",
                 description = "Remote server"
-        ),
+        ), */
 },
 security = {
         @SecurityRequirement(
